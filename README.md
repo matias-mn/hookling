@@ -51,110 +51,137 @@ running in another.
 
 ## Install
 
-Hookling is built from source. There is no download to double-click yet, but
-the whole thing takes a couple of minutes and needs nothing beyond Apple's own
-developer tools.
+There are two ways in. **The prebuilt app is quicker** and needs no developer
+tools. Building from source gives the same result, if you would rather compile
+it yourself.
 
 ### 1. Check the requirements
 
-* **macOS 13 (Ventura) or later.**
-* **Xcode Command Line Tools.** If you are not sure whether you have them, run
-  `xcode-select --install`. It either installs them or tells you they are
-  already there. Full Xcode is not needed. Neither is Homebrew, npm or
-  CocoaPods.
+* **macOS 13 (Ventura) or later**, on Apple Silicon or Intel.
 * **Claude Code.**
+* Only if you build from source: the **Xcode Command Line Tools**. Run
+  `xcode-select --install`; it either installs them or says they are already
+  there. Full Xcode is not needed.
 
-### 2. Download and build
+### 2. Install the app
 
-Run these in Terminal:
+**Prebuilt (recommended).** Paste this into Terminal:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/matias-mn/hookling/main/scripts/install.sh | bash
+```
+
+It downloads the latest release, checks its checksum, puts `Hookling.app` in
+`/Applications` (or `~/Applications` if that is not writable, and it never asks
+for your password), and starts it. The script is short; [read it
+first](scripts/install.sh) if you like.
+
+<details>
+<summary>Prefer to download it yourself?</summary>
+
+1. Download `Hookling.zip` from the
+   [latest release](https://github.com/matias-mn/hookling/releases/latest) and
+   double-click it to unzip.
+2. Drag `Hookling.app` into your Applications folder.
+3. Open it. **macOS will refuse the first time**, with a message that Apple
+   could not verify it. That is because Hookling is not notarized by Apple
+   (notarization needs a paid developer account), not because anything is
+   wrong with it. To allow it, open **System Settings → Privacy & Security**,
+   scroll down to the message about Hookling, and click **Open Anyway**. Or run
+   this once in Terminal:
+   ```sh
+   xattr -dr com.apple.quarantine /Applications/Hookling.app
+   ```
+
+</details>
+
+**Or build from source:**
 
 ```sh
 git clone https://github.com/matias-mn/hookling.git
 cd hookling
 ./scripts/build.sh
-```
-
-The build ends with `Done` and prints where it put the app, `hooklingctl` and
-the hook. Everything it produces goes into `build/` inside this folder; nothing
-is installed anywhere else.
-
-Stay in this folder for the remaining steps. Run `pwd` now and keep the output
-handy: step 5 needs this folder's full path.
-
-### 3. Get some pet artwork
-
-**No artwork is included** (see [Artwork](#artwork) for why), so the pet needs
-a spritesheet from somewhere. Pick one:
-
-* **You use Codex:** run `codex`, type `/pets`, choose any pet, and quit Codex.
-  Then run:
-  ```sh
-  ./scripts/fetch-pet.sh
-  ```
-* **You do not use Codex:** grab a pet from the community gallery by the id in
-  its page URL (for example, `codex-pets.net/#/pets/goku` has the id `goku`):
-  ```sh
-  ./scripts/fetch-pet.sh --community goku
-  ```
-* **You have your own artwork:** any 1536×1872 PNG or WebP laid out as an 8×9
-  grid of 192×208 frames works. Choose it from the menu bar after step 4 with
-  "Choose pet artwork…".
-* **You just want to see it run first:** generate a numbered test sheet and
-  skip ahead:
-  ```sh
-  ./build/bin/hooklingctl testsheet /tmp/sheet.png
-  HOOKLING_SPRITESHEET=/tmp/sheet.png ./scripts/run.sh
-  ```
-
-### 4. Start the pet
-
-```sh
 ./scripts/run.sh
 ```
 
-The pet appears on your desktop, and a paw print appears in the menu bar. That
-paw print is where every setting lives, including "Launch at login" if you want
-the pet to come back after a restart. Running `./scripts/run.sh` again is always
-safe: it replaces the running pet rather than starting a second one.
+The build ends with `Done`. Everything it produces stays in `build/` inside
+this folder. Running `./scripts/run.sh` again is always safe: it replaces the
+running pet rather than starting a second one.
 
-### 5. Connect Claude Code
+**Either way**, a paw print appears in the menu bar. That is where every setting
+lives, including **Launch at login** if you want the pet back after a restart.
+The pet itself appears on your desktop once it has artwork (step 4).
 
-Open Claude Code and run these two commands, using the path you got from `pwd`
-in step 2:
+### 3. Connect Claude Code
+
+**Open the app at least once first.** When it starts, it installs the small
+hook program that Claude Code runs, so the plugin has something to call.
+
+Then run these two commands inside Claude Code:
 
 ```
-/plugin marketplace add /Users/you/hookling
+/plugin marketplace add matias-mn/hookling
 /plugin install hookling@hookling
 ```
 
 Then **quit and reopen Claude Code**. Plugins load at startup, so terminals
 that were already open will not talk to the pet until they are restarted.
 
-Three things commonly go wrong here:
+<details>
+<summary>Working on Hookling itself? Install the plugin from your checkout instead.</summary>
 
-* **Do not put quotes around the path**, even if it contains spaces. The
-  `/plugin` prompt takes the text literally, so quotes become part of the path
-  and it is rejected as "not a valid GitHub owner/repo". Type the path bare.
-* **Do not use the GitHub shorthand** (`matias-mn/hookling`). The hook is a
-  small program compiled in step 2, and it is not in the repository, so a
-  plugin installed straight from GitHub has nothing to run. Always install from
-  the folder you built.
-* **Build before installing.** Claude Code copies the plugin, compiled hook
-  included, at the moment you install it.
+Use the full path of your clone (run `pwd` inside it) in place of
+`matias-mn/hookling`:
 
-If Claude Code is already running inside the `hookling` folder, you can type
-`./` in place of the full path.
+```
+/plugin marketplace add /Users/you/hookling
+/plugin install hookling@hookling
+```
 
-### 6. Check that it works
+**Type the path without quotes**, even if it contains spaces. The `/plugin`
+prompt takes the text literally, so quotes become part of the path and it is
+rejected as "not a valid GitHub owner/repo". Run `./scripts/build.sh` before
+installing: Claude Code copies the plugin, with the hook you compiled, at the
+moment you install it, and that copy takes priority over the app's.
+
+</details>
+
+### 4. Get some pet artwork
+
+**No artwork is included** (see [Artwork](#artwork) for why), so the pet needs
+a spritesheet from somewhere. Pick one:
+
+* **You use Codex:** run `codex`, type `/pets`, choose any pet, and quit Codex.
+  That is all: Hookling finds it in Codex's cache by itself. If Hookling was
+  already running, quit it from the menu bar and open it again.
+* **You want a community pet** from [codex-pets.net](https://codex-pets.net):
+  install it with `npx codex-pets add <id>`, where the id is the last part of
+  the pet's page URL (`codex-pets.net/#/pets/goku` is `goku`). Then choose
+  "Choose pet artwork…" from the menu bar and pick
+  `~/.codex/pets/<id>/spritesheet.webp` (in the file picker, press
+  **⌘⇧G** and paste the path). Only version 1 pets work; see
+  [Community pets](#community-pets). From a source checkout,
+  `./scripts/fetch-pet.sh --community <id>` does all of this and checks the
+  version for you.
+* **You have your own artwork:** any 1536×1872 PNG or WebP laid out as an 8×9
+  grid of 192×208 frames works. Choose it with "Choose pet artwork…".
+* **You just want to see it run first:** generate a numbered test sheet and
+  choose that:
+  ```sh
+  ~/Library/Application\ Support/Hookling/bin/hooklingctl testsheet ~/Desktop/test-sheet.png
+  ```
+
+### 5. Check that it works
 
 Ask Claude Code to do anything that uses a tool, such as reading a file. The pet
 should switch to its running animation while the tool runs, then celebrate when
 the turn finishes.
 
-To see what the pet thinks is going on:
+The app also installs `hooklingctl`, a small command for checking on the pet,
+next to the hook. To see what the pet thinks is going on:
 
 ```sh
-./build/bin/hooklingctl status
+~/Library/Application\ Support/Hookling/bin/hooklingctl status
 ```
 
 `sessions: 1` or more means Claude Code is reaching it. If it says
@@ -163,10 +190,21 @@ To see what the pet thinks is going on:
 To watch every animation once, with captions:
 
 ```sh
-./build/bin/hooklingctl demo
+~/Library/Application\ Support/Hookling/bin/hooklingctl demo
+```
+
+If you will use it often, put it on your `PATH`:
+
+```sh
+echo 'export PATH="$HOME/Library/Application Support/Hookling/bin:$PATH"' >> ~/.zshrc
 ```
 
 ## Updating
+
+**Prebuilt:** run the install command from step 2 again. It replaces the app
+and restarts it, and the new app updates the hook when it starts.
+
+**From source:**
 
 ```sh
 cd hookling
@@ -175,15 +213,13 @@ git pull
 ./scripts/run.sh
 ```
 
-Then reinstall the plugin, because Claude Code keeps its own copy of the hook
-from the day you installed it:
+The plugin itself rarely changes, since the hook comes from the app. When a
+release says it did, update it from Terminal and restart Claude Code:
 
+```sh
+claude plugin marketplace update hookling
+claude plugin update hookling@hookling
 ```
-/plugin uninstall hookling@hookling
-/plugin install hookling@hookling
-```
-
-Quit and reopen Claude Code afterwards.
 
 ## Uninstalling
 
@@ -194,31 +230,37 @@ Quit and reopen Claude Code afterwards.
    ```
 2. In the menu bar, turn off "Launch at login" if you turned it on, then choose
    "Quit Hookling".
-3. Delete the `hookling` folder you cloned, and the little that lives outside
-   it:
+3. Delete the app (`/Applications/Hookling.app`, or the `hookling` folder if
+   you built from source), and the little that lives outside it:
    ```sh
    rm -rf ~/Library/Application\ Support/Hookling
    defaults delete dev.hookling
    ```
 
-Artwork fetched into `~/.codex` belongs to Codex and is left alone.
+Artwork in `~/.codex` belongs to Codex and is left alone.
 
 ## Troubleshooting
 
+The commands below use `hooklingctl` from where the app installs it. From a
+source checkout, `./build/bin/hooklingctl` is the same program.
+
+**macOS says Hookling "cannot be opened" or that Apple "could not verify" it.**
+You downloaded it in a browser. See "Prefer to download it yourself?" in
+step 2 for the one-time fix, or use the install command instead, which avoids
+the problem.
+
 **The pet does not appear.** Look for the paw print in the menu bar. If it is
 there, the pet may be hidden: open the menu and choose "Show Hookling", or
-"Reset position" if it has walked off a screen you have since unplugged. If
-there is no paw print, the app is not running. Start it with
-`./scripts/run.sh` and read `build/hookling.log`.
-
-**The pet is invisible, or the menu says the artwork is missing.** Step 3 has
-not found a spritesheet yet. Run `./scripts/fetch-pet.sh`, which says exactly
-where it looked and what to do next.
+"Reset position" if it has walked off a screen you have since unplugged. If the
+menu says the artwork is missing, go back to step 4. If there is no paw print,
+the app is not running: open it from Applications (or `./scripts/run.sh` from
+source, which logs to `build/hookling.log`).
 
 **The pet does not react to Claude Code.** Work through these in order:
 
-1. `./build/bin/hooklingctl status`. If it says the pet is not running, start
-   it with `./scripts/run.sh`.
+1. `~/Library/Application\ Support/Hookling/bin/hooklingctl status`. If the
+   file does not exist, the app has never been opened: open it, then try
+   again. If it says the pet is not running, open the app.
 2. In Claude Code, run `/plugin` and check that `hookling` is installed and
    enabled.
 3. Quit and reopen Claude Code. Every open terminal needs a restart after an
@@ -227,15 +269,16 @@ where it looked and what to do next.
    Claude Code's way; with `HOOKLING_HOOK_DEBUG=1` it prints the reason instead.
    No output means the event was delivered:
    ```sh
-   HOOKLING_HOOK_DEBUG=1 ./build/bin/hookling-hook work_started </dev/null
+   HOOKLING_HOOK_DEBUG=1 ~/Library/Application\ Support/Hookling/bin/hookling-hook work_started </dev/null
    ```
 
-**"not a valid GitHub owner/repo" when adding the marketplace.** The path has
-quotes around it, or it is not the folder you cloned. See step 5.
+**"not a valid GitHub owner/repo" when adding the marketplace.** There is a
+typo in `matias-mn/hookling`, or, for a local checkout, the path has quotes
+around it. See step 3.
 
 **There seem to be two pets.** Run `ps -ax | grep -i hookling`. Only one
-`Hookling` process should be listed. If there are more, `pkill -x Hookling`
-and then `./scripts/run.sh`.
+`Hookling` process should be listed. If there are more, run `pkill -x Hookling`
+and open the app again.
 
 ## Artwork
 
@@ -244,7 +287,12 @@ MIT; the artwork is OpenAI's and stays on your machine.
 
 The spritesheet is not in the Codex repository either — Codex downloads it at
 first use into your own `CODEX_HOME` cache. So the safest path, and the default,
-is to read the copy that is already there:
+is to read the copy that is already there. The app does this by itself, and
+neither the app nor the release download contains any artwork.
+
+The rest of this section uses `scripts/fetch-pet.sh`, which is in a source
+checkout (`git clone https://github.com/matias-mn/hookling.git`). It works the
+same with the prebuilt app. Run with no arguments, it looks for the artwork:
 
 ```sh
 ./scripts/fetch-pet.sh
@@ -376,7 +424,21 @@ It exits 0 when the pet is not running, so it is safe to call from a hook.
 
 ```sh
 ./scripts/test.sh           # build everything and run the test suite
+./scripts/package.sh        # build the universal release zip into dist/
 ```
+
+`scripts/package.sh` builds for both Apple Silicon and Intel, never copies
+artwork into the bundle (and fails if it finds any), and writes
+`dist/Hookling.zip` plus its SHA-256. To publish a release, bump `version` in
+`adapters/claude-code/plugin/.claude-plugin/plugin.json`, then:
+
+```sh
+./scripts/package.sh
+gh release create v<version> dist/Hookling.zip dist/Hookling.zip.sha256
+```
+
+The asset names never change, so the install command always fetches the newest
+release.
 
 `HOOKLING_SOCKET` overrides the socket path, so you can run a second pet side by
 side without the two fighting over it. `HOOKLING_HOOK_DEBUG=1` makes the hook

@@ -22,6 +22,16 @@ public enum CatalogLocator {
         if let bundled = Bundle.main.url(forResource: "animations", withExtension: "json") {
             return bundled
         }
+        // `hooklingctl` is usually run through the link the app puts in
+        // ~/Library/Application Support/Hookling/bin. Bundle.main does not follow
+        // that link, so also look in the bundle the real executable lives in.
+        if let executable = Bundle.main.executableURL {
+            let url = executable.resolvingSymlinksInPath()
+                .deletingLastPathComponent()                // Contents/MacOS
+                .deletingLastPathComponent()                // Contents
+                .appendingPathComponent("Resources/animations.json")
+            if FileManager.default.fileExists(atPath: url.path) { return url }
+        }
         if let root = repositoryRoot() {
             let url = root.appendingPathComponent("assets/pet/animations.json")
             if FileManager.default.fileExists(atPath: url.path) { return url }

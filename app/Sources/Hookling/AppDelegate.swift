@@ -34,6 +34,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         loadCatalogAndRenderer()
         startServer()
+        if let result = HookInstaller.installFromMainBundle() { log(result) }
         observeSystemChanges()
 
         if let controller {

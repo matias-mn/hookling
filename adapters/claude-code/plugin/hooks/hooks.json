@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/bin/hookling-hook\" session_started",
+            "command": "h=\"${CLAUDE_PLUGIN_ROOT}/bin/hookling-hook\"; [ -x \"$h\" ] || h=\"$HOME/Library/Application Support/Hookling/bin/hookling-hook\"; [ -x \"$h\" ] && exec \"$h\" session_started; exit 0",
             "timeout": 5
           }
         ]
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/bin/hookling-hook\" prompt_submitted",
+            "command": "h=\"${CLAUDE_PLUGIN_ROOT}/bin/hookling-hook\"; [ -x \"$h\" ] || h=\"$HOME/Library/Application Support/Hookling/bin/hookling-hook\"; [ -x \"$h\" ] && exec \"$h\" prompt_submitted; exit 0",
             "timeout": 5
           }
         ]
@@ -28,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/bin/hookling-hook\" work_started",
+            "command": "h=\"${CLAUDE_PLUGIN_ROOT}/bin/hookling-hook\"; [ -x \"$h\" ] || h=\"$HOME/Library/Application Support/Hookling/bin/hookling-hook\"; [ -x \"$h\" ] && exec \"$h\" work_started; exit 0",
             "timeout": 5
           }
         ]
@@ -39,7 +39,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/bin/hookling-hook\" work_progress",
+            "command": "h=\"${CLAUDE_PLUGIN_ROOT}/bin/hookling-hook\"; [ -x \"$h\" ] || h=\"$HOME/Library/Application Support/Hookling/bin/hookling-hook\"; [ -x \"$h\" ] && exec \"$h\" work_progress; exit 0",
             "timeout": 5
           }
         ]
@@ -50,7 +50,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/bin/hookling-hook\" attention_needed",
+            "command": "h=\"${CLAUDE_PLUGIN_ROOT}/bin/hookling-hook\"; [ -x \"$h\" ] || h=\"$HOME/Library/Application Support/Hookling/bin/hookling-hook\"; [ -x \"$h\" ] && exec \"$h\" attention_needed; exit 0",
             "timeout": 5
           }
         ]
@@ -61,7 +61,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/bin/hookling-hook\" work_progress",
+            "command": "h=\"${CLAUDE_PLUGIN_ROOT}/bin/hookling-hook\"; [ -x \"$h\" ] || h=\"$HOME/Library/Application Support/Hookling/bin/hookling-hook\"; [ -x \"$h\" ] && exec \"$h\" work_progress; exit 0",
             "timeout": 5
           }
         ]
@@ -72,7 +72,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/bin/hookling-hook\" work_finished",
+            "command": "h=\"${CLAUDE_PLUGIN_ROOT}/bin/hookling-hook\"; [ -x \"$h\" ] || h=\"$HOME/Library/Application Support/Hookling/bin/hookling-hook\"; [ -x \"$h\" ] && exec \"$h\" work_finished; exit 0",
             "timeout": 5
           }
         ]
@@ -83,7 +83,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/bin/hookling-hook\" session_ended",
+            "command": "h=\"${CLAUDE_PLUGIN_ROOT}/bin/hookling-hook\"; [ -x \"$h\" ] || h=\"$HOME/Library/Application Support/Hookling/bin/hookling-hook\"; [ -x \"$h\" ] && exec \"$h\" session_ended; exit 0",
             "timeout": 5
           }
         ]

@@ -8,26 +8,33 @@ does, which is what makes an adapter for another tool a matter of writing a new
 ## Install
 
 Follow the step-by-step [install guide in the main README](../../README.md#install).
-In short: build, start the pet, then install the plugin from the folder you
-built, with the path typed bare (no quotes), and restart Claude Code:
-
-```sh
-./scripts/build.sh          # compiles the hook into plugin/bin/hookling-hook
-./scripts/run.sh            # start the pet
-```
+In short: install and open the app once, then inside Claude Code run
 
 ```
-/plugin marketplace add /Users/you/hookling
+/plugin marketplace add matias-mn/hookling
 /plugin install hookling@hookling
 ```
+
+and restart Claude Code.
 
 The marketplace manifest is at the repo root (`.claude-plugin/marketplace.json`);
 the plugin itself is `adapters/claude-code/plugin/`.
 
-Build first. `plugin/bin/hookling-hook` is a compiled artifact and is deliberately
-not committed, so a fresh clone has no hook until `scripts/build.sh` has run. A
-missing hook is silent rather than noisy — Claude Code reports the failed command
-and carries on.
+### Where the hook comes from
+
+The hook is a compiled binary and is deliberately not committed, so a plugin
+installed from GitHub contains only `hooks.json`. Each hook command therefore
+looks in two places, in order:
+
+1. `plugin/bin/hookling-hook`, which `scripts/build.sh` compiles into a source
+   checkout. A plugin installed from that checkout's path uses this one.
+2. `~/Library/Application Support/Hookling/bin/hookling-hook`, which the app
+   copies out of its own bundle every time it starts. A plugin installed from
+   GitHub uses this one, and it always matches the installed app.
+
+If neither exists, because the app has never been opened, the command exits 0
+without doing anything. A desktop pet is never a reason for a tool call to
+fail.
 
 ## Event mapping
 
