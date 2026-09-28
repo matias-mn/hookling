@@ -32,6 +32,12 @@ exact upstream files and line ranges consulted.
 
 Upstream project: https://github.com/openai/codex (Apache-2.0)
 
+## Demo media
+
+The images in `docs/media/` show Jiji, a community pet by yena, from
+https://codex-pets.net/#/pets/jiji. They are credited to their creator, are not
+covered by this project's MIT licence, and Jiji is not bundled with the app.
+
 ## Seedy artwork — NOT distributed with this project
 
 The Seedy character artwork (`seedy-spritesheet-v4.webp`) is OpenAI's. It is

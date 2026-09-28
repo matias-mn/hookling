@@ -179,6 +179,10 @@ in a public repository would require.
   Apache-2.0 attribution and the specific files involved. No Codex source was
   copied verbatim; see `docs/codex-pet-analysis.md`.
 * Seedy artwork: **OpenAI's, not distributed here, no rights granted.**
+* Demo media in `docs/media/` shows Jiji, a community pet by yena from
+  codex-pets.net, credited in the README and `NOTICE`. It is used only in the
+  README's images and is not bundled with the app. No OpenAI or Anthropic
+  character is used in any promotional image.
 * No OpenAI or Anthropic logo is used as this application's branding. The menu
   bar uses an SF Symbol.
 * "Codex", "Seedy", "OpenAI", "Claude", "Claude Code" are used nominatively to

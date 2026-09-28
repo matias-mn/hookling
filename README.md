@@ -7,6 +7,12 @@ lands, and goes to sleep when you stop working.
 It is a menu bar accessory: no Dock icon, no window chrome, and it never takes
 focus from the editor or terminal you are actually using.
 
+<p align="center">
+  <img src="docs/media/demo.gif" width="560"
+       alt="A black cat pet waves hello, runs while Claude uses tools, looks up when Claude needs permission, jumps when the turn finishes, then idles.">
+</p>
+<p align="center"><sub>Shown with <a href="https://codex-pets.net/#/pets/jiji">Jiji</a>, a community pet by yena. Hookling works with any compatible pet; see <a href="#4-get-some-pet-artwork">getting pet artwork</a>.</sub></p>
+
 It is compatible with the spritesheet format used by the terminal pets in
 OpenAI's Codex CLI, so it can render a pet you already have in your local Codex
 cache, a community pet, or your own pixel art. It is an independent
@@ -17,10 +23,15 @@ contains no Codex source code and no Codex artwork.
 > affiliated with, endorsed by, or sponsored by OpenAI or Anthropic. "Codex",
 > "Seedy" and "OpenAI" are trademarks of OpenAI; "Claude" and "Claude Code" are
 > trademarks of Anthropic. They are used here only to describe what this
-> software works with. No artwork is included: see [Artwork](#artwork), which is
-> the first thing to sort out.
+> software works with. The app includes no pet artwork: see
+> [Artwork](#artwork), which is the first thing to sort out.
 
 ## What it looks like
+
+<p align="center">
+  <img src="docs/media/states.png" width="720"
+       alt="Six states of the pet: Running, Needs input, Done, Ready, Blocked and Idle, each with a caption.">
+</p>
 
 The pet expresses one of eight states. Four are Codex's own; the rest exist
 because Claude Code exposes more lifecycle detail, and they reuse existing
@@ -154,9 +165,10 @@ a spritesheet from somewhere. Pick one:
 * **You use Codex:** run `codex`, type `/pets`, choose any pet, and quit Codex.
   That is all: Hookling finds it in Codex's cache by itself. If Hookling was
   already running, quit it from the menu bar and open it again.
-* **You want a community pet** from [codex-pets.net](https://codex-pets.net):
+* **You want a community pet** from [codex-pets.net](https://codex-pets.net),
+  our favourite place to find them:
   install it with `npx codex-pets add <id>`, where the id is the last part of
-  the pet's page URL (`codex-pets.net/#/pets/goku` is `goku`). Then choose
+  the pet's page URL (`codex-pets.net/#/pets/jiji` is `jiji`). Then choose
   "Choose pet artwork…" from the menu bar and pick
   `~/.codex/pets/<id>/spritesheet.webp` (in the file picker, press
   **⌘⇧G** and paste the path). Only version 1 pets work; see
@@ -325,11 +337,13 @@ is uncertain — is in [docs/licensing.md](docs/licensing.md).
 
 ### Community pets
 
-[codex-pets.net](https://codex-pets.net) is a community gallery of shared pets.
-Grab one by the id in its page URL:
+**Looking for a pet? Start with [codex-pets.net](https://codex-pets.net).** It
+is a community gallery of pixel pets made for Codex, and most of the pets we
+use come from there, including Jiji in the demo above. Pick a version 1
+pet (see below) and grab it by the id in its page URL:
 
 ```sh
-./scripts/fetch-pet.sh --community goku     # codex-pets.net/#/pets/goku
+./scripts/fetch-pet.sh --community jiji     # codex-pets.net/#/pets/jiji
 ./scripts/run.sh
 ```
 
@@ -455,3 +469,9 @@ copied verbatim; the teardown is in
 [docs/codex-pet-analysis.md](docs/codex-pet-analysis.md).
 
 Seedy artwork: **OpenAI's, not distributed here, no rights granted.**
+
+Demo media: the images in `docs/media/` show
+[Jiji](https://codex-pets.net/#/pets/jiji), a community pet by yena on
+codex-pets.net. They are not covered by the MIT licence, and Jiji is not
+bundled with the app. `scripts/render-media.sh` regenerates them from any
+spritesheet you have the right to publish.

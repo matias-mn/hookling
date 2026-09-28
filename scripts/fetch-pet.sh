@@ -72,7 +72,7 @@ while [[ $# -gt 0 ]]; do
         --from-cdn) FROM_CDN=1; shift ;;
         --list-pets) LIST_PETS=1; shift ;;
         --community)
-            [[ $# -ge 2 ]] || { fail "--community needs a pet id, e.g. --community goku"; exit 2; }
+            [[ $# -ge 2 ]] || { fail "--community needs a pet id, e.g. --community jiji"; exit 2; }
             COMMUNITY="$2"; shift 2
             ;;
         --pet)
@@ -149,7 +149,7 @@ if [[ -n "$COMMUNITY" ]]; then
               --output "$META" "$COMMUNITY_SITE/api/pets/$COMMUNITY" 2>/dev/null; then
         fail "No pet with id '$COMMUNITY'."
         echo "The id is the last part of the page URL, e.g."
-        echo "  $COMMUNITY_SITE/#/pets/goku  ->  --community goku"
+        echo "  $COMMUNITY_SITE/#/pets/jiji  ->  --community jiji"
         exit 1
     fi
 
