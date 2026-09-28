@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "hookling",
+  "description": "A desktop pet that reacts to Claude Code, and the adapters that drive it.",
+  "owner": {
+    "name": "matias-mn"
+  },
+  "plugins": [
+    {
+      "name": "hookling",
+      "description": "A desktop pet that reacts to what Claude Code is doing.",
+      "category": "fun",
+      "source": "./adapters/claude-code/plugin"
+    }
+  ]
+}

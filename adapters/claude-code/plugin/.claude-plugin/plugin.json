@@ -1,0 +1,15 @@
+{
+  "name": "hookling",
+  "version": "1.0.0",
+  "description": "A desktop pet that reacts to what Claude Code is doing: runs while tools are running, looks up when you are asked for input, and goes to sleep when the session ends. Hooks only - no tools, no commands, and nothing from your prompts or tool output ever leaves the machine.",
+  "author": {
+    "name": "matias-mn"
+  },
+  "homepage": "https://github.com/matias-mn/hookling",
+  "keywords": [
+    "desktop-pet",
+    "status",
+    "macos",
+    "fun"
+  ]
+}

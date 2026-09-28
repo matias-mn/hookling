@@ -1,0 +1,44 @@
+hookling
+Copyright (c) 2026 hookling contributors
+
+This product is NOT affiliated with, endorsed by, or sponsored by OpenAI or
+Anthropic. "Codex", "Seedy", "OpenAI", "Claude" and "Claude Code" are the
+property of their respective owners and are used here only nominatively, to
+describe what this software interoperates with.
+
+---
+
+## Code derived from OpenAI Codex
+
+Two pieces of behaviour in this repository are re-implementations of logic in
+the OpenAI Codex CLI, which is licensed under the Apache License 2.0
+(Copyright 2025 OpenAI):
+
+  * The animation data table in `assets/pet/animations.json` reproduces the
+    sprite indices and per-frame durations defined in
+    `codex-rs/tui/src/pets/model.rs` (`default_animations`, `idle_animation`,
+    `app_state_animation`).
+
+  * The frame-selection algorithm in `app/Sources/HooklingCore/AnimationPlayer.swift`
+    is a Swift re-implementation of `current_animation_frame` /
+    `frame_at_elapsed` in `codex-rs/tui/src/pets/ambient.rs`, and the sprite
+    grid geometry in `app/Sources/HooklingCore/SpriteSheet.swift` follows
+    `codex-rs/tui/src/pets/catalog.rs` and `frames.rs`.
+
+No Codex source code was copied verbatim. These are independent Swift
+implementations of the documented behaviour, written so that this pet animates
+identically to the Codex terminal pet. See docs/codex-pet-analysis.md for the
+exact upstream files and line ranges consulted.
+
+Upstream project: https://github.com/openai/codex (Apache-2.0)
+
+## Seedy artwork — NOT distributed with this project
+
+The Seedy character artwork (`seedy-spritesheet-v4.webp`) is OpenAI's. It is
+not committed to this repository, and this project grants you no rights to it.
+
+The Codex repository does not contain the spritesheet either; Codex downloads
+it at runtime from an OpenAI CDN into the user's own `CODEX_HOME` cache.
+This project reads the copy already present on your machine.
+
+See docs/licensing.md for the full analysis.

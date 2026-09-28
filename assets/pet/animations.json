@@ -1,0 +1,161 @@
+{
+  "_comment": [
+    "Animation data reproduced from openai/codex codex-rs/tui/src/pets/model.rs",
+    "(default_animations, idle_animation, app_state_animation) and catalog.rs.",
+    "See docs/codex-pet-analysis.md for the upstream line references.",
+    "",
+    "Each track lists the PRIMARY frames only, exactly as app_state_animation",
+    "generates them: sprite index = row * columns + column, every frame the same",
+    "duration except the last, which is held longer. How a track repeats is a",
+    "playback decision (loopPrimary / codexTriple / once), not baked in here."
+  ],
+
+  "sheet": {
+    "file": "seedy-spritesheet-v4.webp",
+    "frameWidth": 192,
+    "frameHeight": 208,
+    "columns": 8,
+    "rows": 9
+  },
+
+  "animations": {
+    "idle": {
+      "row": 0,
+      "frames": [
+        { "index": 0, "durationMs": 1680 },
+        { "index": 1, "durationMs": 660 },
+        { "index": 2, "durationMs": 660 },
+        { "index": 3, "durationMs": 840 },
+        { "index": 4, "durationMs": 840 },
+        { "index": 5, "durationMs": 1920 }
+      ],
+      "loop": true,
+      "fallback": "idle"
+    },
+
+    "running-right": {
+      "row": 1,
+      "frames": [
+        { "index": 8, "durationMs": 120 },
+        { "index": 9, "durationMs": 120 },
+        { "index": 10, "durationMs": 120 },
+        { "index": 11, "durationMs": 120 },
+        { "index": 12, "durationMs": 120 },
+        { "index": 13, "durationMs": 120 },
+        { "index": 14, "durationMs": 120 },
+        { "index": 15, "durationMs": 220 }
+      ],
+      "loop": true,
+      "fallback": "idle"
+    },
+
+    "running-left": {
+      "row": 2,
+      "frames": [
+        { "index": 16, "durationMs": 120 },
+        { "index": 17, "durationMs": 120 },
+        { "index": 18, "durationMs": 120 },
+        { "index": 19, "durationMs": 120 },
+        { "index": 20, "durationMs": 120 },
+        { "index": 21, "durationMs": 120 },
+        { "index": 22, "durationMs": 120 },
+        { "index": 23, "durationMs": 220 }
+      ],
+      "loop": true,
+      "fallback": "idle"
+    },
+
+    "waving": {
+      "row": 3,
+      "frames": [
+        { "index": 24, "durationMs": 140 },
+        { "index": 25, "durationMs": 140 },
+        { "index": 26, "durationMs": 140 },
+        { "index": 27, "durationMs": 280 }
+      ],
+      "loop": true,
+      "fallback": "idle"
+    },
+
+    "jumping": {
+      "row": 4,
+      "frames": [
+        { "index": 32, "durationMs": 140 },
+        { "index": 33, "durationMs": 140 },
+        { "index": 34, "durationMs": 140 },
+        { "index": 35, "durationMs": 140 },
+        { "index": 36, "durationMs": 280 }
+      ],
+      "loop": true,
+      "fallback": "idle"
+    },
+
+    "failed": {
+      "row": 5,
+      "frames": [
+        { "index": 40, "durationMs": 140 },
+        { "index": 41, "durationMs": 140 },
+        { "index": 42, "durationMs": 140 },
+        { "index": 43, "durationMs": 140 },
+        { "index": 44, "durationMs": 140 },
+        { "index": 45, "durationMs": 140 },
+        { "index": 46, "durationMs": 140 },
+        { "index": 47, "durationMs": 240 }
+      ],
+      "loop": true,
+      "fallback": "idle"
+    },
+
+    "waiting": {
+      "row": 6,
+      "frames": [
+        { "index": 48, "durationMs": 150 },
+        { "index": 49, "durationMs": 150 },
+        { "index": 50, "durationMs": 150 },
+        { "index": 51, "durationMs": 150 },
+        { "index": 52, "durationMs": 150 },
+        { "index": 53, "durationMs": 260 }
+      ],
+      "loop": true,
+      "fallback": "idle"
+    },
+
+    "running": {
+      "row": 7,
+      "frames": [
+        { "index": 56, "durationMs": 120 },
+        { "index": 57, "durationMs": 120 },
+        { "index": 58, "durationMs": 120 },
+        { "index": 59, "durationMs": 120 },
+        { "index": 60, "durationMs": 120 },
+        { "index": 61, "durationMs": 220 }
+      ],
+      "loop": true,
+      "fallback": "idle"
+    },
+
+    "review": {
+      "row": 8,
+      "frames": [
+        { "index": 64, "durationMs": 150 },
+        { "index": 65, "durationMs": 150 },
+        { "index": 66, "durationMs": 150 },
+        { "index": 67, "durationMs": 150 },
+        { "index": 68, "durationMs": 150 },
+        { "index": 69, "durationMs": 280 }
+      ],
+      "loop": true,
+      "fallback": "idle"
+    }
+  },
+
+  "_aliasComment": "Upstream registers these as separate entries with identical parameters; kept so both vocabularies work from hooklingctl.",
+  "aliases": {
+    "move_right": "running-right",
+    "move_left": "running-left",
+    "wave": "waving",
+    "bounce": "jumping",
+    "sad": "failed",
+    "jump": "jumping"
+  }
+}

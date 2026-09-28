@@ -1,0 +1,25 @@
+# ---------------------------------------------------------------------------
+# Seedy artwork is OpenAI's and is NOT redistributable. Never commit it.
+# See docs/licensing.md.
+# ---------------------------------------------------------------------------
+assets/pet/*.webp
+assets/pet/*.png
+assets/pet/*.gif
+
+# Swift / SwiftPM
+app/.build/
+app/.swiftpm/
+*.o
+*.dSYM/
+
+# Build output
+build/
+dist/
+*.app/
+
+# scripts/build.sh compiles the hook and copies it here, where the plugin's
+# ${CLAUDE_PLUGIN_ROOT} can reach it. It is a build artifact, not source.
+adapters/claude-code/plugin/bin/
+
+# macOS
+.DS_Store
